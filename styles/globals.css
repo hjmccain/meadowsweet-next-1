@@ -2,26 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: "Erika";
+  src: url("../public/fonts/Erika.ttf");
+  /* font-style: normal;
+  font-weight: 300; */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.animate-grow {
+  animation-duration: 2s;
+  animation-name: animate-grow;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes animate-grow {
+  from {
+    height: 0px;
+  }
+
+  to {
+    height: 100vh;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.animate-shrink {
+  animation-duration: 2s;
+  animation-name: animate-shrink;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes animate-shrink {
+  from {
+    height: 100vh;
+    visibility: visible;
+  }
+
+  to {
+    height: 0;
+    visibility: hidden;
+  }
 }
