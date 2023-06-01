@@ -27,11 +27,10 @@ export default function Home() {
     <main className="font-serif bg-not-white relative h-screen">
       <div
         className={classNames(
-          entered ? "block animate-shrink" : "absolute z-10",
-          "grid grid-rows-3 h-screen w-full bg-not-white"
+          entered ? "animate-shrink" : "z-10 top-[20vh]",
+          "w-full absolute"
         )}>
-        <div className="mr-12 ml-5 my-2 flex h-14"></div>
-        <div className="w-fit text-center mx-auto place-self-start justify-self-center -mt-32 flex flex-col justify-around h-full">
+        <div className="w-fit text-center mx-auto justify-self-center">
           <div>
             <Image
               src="/logo.png"
@@ -48,7 +47,7 @@ export default function Home() {
               <h2 className="">ayurveda</h2>
             </div>
           </div>
-          <button onClick={enter}>
+          <button className="pt-24" onClick={enter}>
             <h2 className="text-6xl text-peach hover:tracking-widest transition-all">
               e n t e r
             </h2>
@@ -65,11 +64,15 @@ export default function Home() {
       <div
         id="home"
         className={classNames(
-          entered ? "block animate-grow" : "relative",
-          "md:p-4"
+          entered ? "block animate-grow md:p-4" : "top-[100vh]",
+          "absolute"
         )}>
-        <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
-        <div id="content"></div>
+        {entered && (
+          <>
+            <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
+            <div id="content"></div>
+          </>
+        )}
       </div>
     </main>
   );
