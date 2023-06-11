@@ -9,6 +9,22 @@
   font-weight: 300; */
 }
 
+@font-face {
+  font-family: "Lovegrove";
+  src: url("../public/fonts/Lovegrove0.1-Regular.ttf");
+  /* font-style: normal;
+  font-weight: 300; */
+}
+
+.bg {
+  background: rgb(250, 246, 246);
+  background: linear-gradient(
+    0deg,
+    rgba(250, 246, 246, 1) 0%,
+    rgba(250, 246, 246, 0.8) 40%
+  );
+}
+
 .animate-grow {
   animation-duration: 2s;
   animation-name: animate-grow;
@@ -42,5 +58,45 @@
   to {
     /* padding-top: 0; */
     top: -50vh;
+  }
+}
+
+.animate-fade-in {
+  animation-duration: 2s;
+  animation-name: animate-fade-in;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes animate-fade-in {
+  0% {
+    opacity: 0%;
+  }
+
+  80% {
+    opacity: 40%;
+  }
+
+  100% {
+    opacity: 95%;
+  }
+}
+
+.animate-side-slide {
+  animation-duration: 0.8s;
+  animation-name: animate-side-slide;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+  right: 0;
+  left: 0;
+}
+
+@keyframes animate-side-slide {
+  0% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
   }
 }

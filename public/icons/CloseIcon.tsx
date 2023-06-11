@@ -1,6 +1,6 @@
 const CloseIcon = ({ width, color }: { width: string; color?: string }) => {
   return (
-    <div style={{ width }}>
+    <div className="hover:brightness-95" style={{ width }}>
       <svg
         version="1.1"
         id="Layer_1"

@@ -2,8 +2,10 @@ import Nav from "@/components/Nav";
 import classNames from "classnames";
 import Image from "next/image";
 import { useState } from "react";
+import Home from "./home";
+import Link from "next/link";
 
-export default function Home() {
+export default function Index() {
   const [entered, setEntered] = useState(false);
   const [homeView, setHomeView] = useState(false);
   const [showNav, toggleNav] = useState(false);
@@ -12,25 +14,17 @@ export default function Home() {
     setEntered(true);
   };
 
-  console.log({ entered });
-
   // TO DO
-  // On enter, load/unhide homepage component & begin setTimeoutFn
-  // Trigger scrollTo event
-  // After scrollTo event, use onscrollend to hide landing page so that user can't scroll back up & fade in nav menu
-  // Backup for most browsers (only Chrome & Firefox support onscrollend) — timeout fn
-
-  // RE DO
-  // Animate changes in absolute positioning instead! No scrolling
+  // Figure out positioning at short screen heights
 
   return (
     <main className="font-serif bg-not-white relative h-screen">
       <div
         className={classNames(
-          entered ? "animate-shrink" : "z-10 top-[20vh]",
-          "w-full absolute"
+          entered ? "animate-shrink" : "top-[20vh]",
+          "w-full absolute z-10"
         )}>
-        <div className="w-fit text-center mx-auto justify-self-center">
+        <div className="w-fit text-center mx-auto justify-self-center bg pb-8">
           <div>
             <Image
               src="/logo.png"
@@ -59,18 +53,58 @@ export default function Home() {
         alt=""
         width={500}
         height={500}
-        className="mx-auto justify-self-start absolute z-20 bottom-0 right-0 left-0"
+        className={classNames(
+          entered ? "animate-side-slide" : "right-0 left-0",
+          "mx-auto justify-self-start absolute bottom-0 z-10"
+        )}
       />
       <div
         id="home"
         className={classNames(
-          entered ? "block animate-grow md:p-4" : "top-[100vh]",
+          entered
+            ? "block animate-grow md:p-4 w-full h-full bg-light-white"
+            : "top-[100vh]",
           "absolute"
         )}>
         {entered && (
           <>
-            <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
-            <div id="content"></div>
+            <div
+              className={classNames(
+                entered &&
+                  "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-light-white -ml-4 pl-4",
+                entered && "animate-fade-in"
+              )}>
+              <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
+              <div
+                className={classNames(
+                  showNav ? "opacity-0" : "opacity-100",
+                  "mx-auto absolute top-3 left-[38%] transition-opacity"
+                )}>
+                <h2
+                  className={classNames(
+                    entered && "animate-fade-in",
+                    "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
+                  )}>
+                  midwifery
+                </h2>
+              </div>
+              <Link href="/midwifery">
+                <Image
+                  src="/logo-pink.png"
+                  alt=""
+                  width={180}
+                  height={500}
+                  className={classNames(
+                    entered && "animate-fade-in",
+                    showNav ? "opacity-0" : "opacity-100",
+                    "fixed top-7 right-6 transition-opacity hover:brightness-95"
+                  )}
+                />
+              </Link>
+            </div>
+            <div id="content">
+              <Home />
+            </div>
           </>
         )}
       </div>
