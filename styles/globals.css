@@ -78,20 +78,20 @@
   }
 
   100% {
-    opacity: 95%;
+    opacity: 100%;
   }
 }
 
-.animate-side-slide {
+.animate-fade-out {
   animation-duration: 0.8s;
-  animation-name: animate-side-slide;
+  animation-name: animate-fade-out;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in;
   right: 0;
   left: 0;
 }
 
-@keyframes animate-side-slide {
+@keyframes animate-fade-out {
   0% {
     opacity: 100%;
   }

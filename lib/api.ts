@@ -28,19 +28,27 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   return json.data;
 }
 
-export async function getPages() {
+export async function getContent() {
   const data = await fetchAPI(`
-    {
-      pages(first: 20) {
-        edges {
-          node {
+  {
+    categories {
+      nodes {
+        name
+        slug
+        posts {
+          nodes {
             title
-            id  
+            content
+            tags {
+              nodes {
+                name
+              }
+            }
           }
         }
       }
     }
-  `);
+  }`);
 
-  return data?.pages;
+  return data;
 }

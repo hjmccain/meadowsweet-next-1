@@ -4,14 +4,142 @@ import Image from "next/image";
 import { useState } from "react";
 import Home from "./home";
 import Link from "next/link";
+import { getContent } from "@/lib/api";
 
-export default function Index() {
-  const [entered, setEntered] = useState(false);
-  const [homeView, setHomeView] = useState(false);
+interface IndexProps {
+  content: Content;
+}
+
+interface Paragraph {
+  title?: string;
+  content: Array<string>;
+}
+
+interface List {
+  title?: string;
+  content: Array<string>;
+}
+
+interface Illustration {
+  src?: string;
+  width?: string;
+  height?: string;
+}
+
+type Content = Record<
+  string,
+  {
+    slug: string;
+    paragraphs: Array<Paragraph>;
+    lists: Array<List>;
+    illustrations: Array<Illustration>;
+  }
+>;
+
+function extractPreTagContent(htmlString: string) {
+  const regex = /<pre[^>]*>(.*?)<\/pre>/g;
+  const matches = htmlString.match(regex);
+
+  if (matches) {
+    const contentArray = matches.map((match) => {
+      const contentRegex = /<pre[^>]*>(.*?)<\/pre>/;
+      const matchResult = contentRegex.exec(match);
+      return matchResult?.[1] || "";
+    });
+    return contentArray;
+  }
+
+  return [];
+}
+
+export async function getStaticProps({ preview = false }) {
+  const res = await getContent();
+
+  const content: Content = {};
+
+  (() => {
+    for (const idx in res.categories.nodes) {
+      const obj = res.categories.nodes[idx];
+      const wpContent = obj.posts.nodes;
+
+      const sorted = wpContent.reduce(
+        (acc: any, current: any, idx: any) => {
+          return (() => {
+            const tags = current.tags.nodes.map((obj: any) => obj.name);
+            const regexTitle = /<h2[^>]*>(.*?)<\/h2>/;
+
+            if (tags.includes("illustration")) {
+              const regexSrc = /src="([^"]+)"/;
+              const regexWidth = /width="([^"]+)"/;
+              const regexHeight = /height="([^"]+)"/;
+
+              const illustration: Illustration = {
+                src: regexSrc.exec(current.content)?.[1],
+                width: regexWidth.exec(current.content)?.[1],
+                height: regexHeight.exec(current.content)?.[1],
+              };
+              acc["illustrations"].push(illustration);
+            }
+
+            if (tags.includes("paragraph")) {
+              const paragraph: Paragraph = {
+                title: regexTitle.exec(current.content)?.[1],
+                content: extractPreTagContent(current.content),
+              };
+              acc["paragraphs"].push(paragraph);
+            }
+
+            if (tags.includes("list")) {
+              const list: List = {
+                title: regexTitle.exec(current.content)?.[1],
+                content: extractPreTagContent(current.content),
+              };
+              acc["lists"].push(list);
+            }
+
+            return acc;
+          })();
+        },
+        {
+          illustrations: [],
+          paragraphs: [],
+          lists: [],
+        }
+      );
+
+      content[obj.slug] = {
+        slug: obj.slug,
+        ...sorted,
+      };
+    }
+  })();
+
+  return {
+    props: { content },
+  };
+}
+
+export default function Index({ content }: IndexProps) {
+  const setSessionValue = () => {
+    if (typeof window !== "undefined") {
+      const sessionValue = window.sessionStorage.getItem("entered");
+      return sessionValue === "true";
+    }
+  };
+
+  const [entered, setEntered] = useState(setSessionValue);
+  const [entering, setEntering] = useState(false);
   const [showNav, toggleNav] = useState(false);
 
   const enter = () => {
-    setEntered(true);
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem("entered", "true");
+      setEntering(true);
+    }
+    setTimeout(() => {
+      setEntered(setSessionValue);
+      setEntering(false);
+    }, 3000);
   };
 
   // TO DO
@@ -21,7 +149,8 @@ export default function Index() {
     <main className="font-serif bg-not-white relative h-screen">
       <div
         className={classNames(
-          entered ? "animate-shrink" : "top-[20vh]",
+          entering && "animate-shrink",
+          entered ? "-top-[50vh]" : "top-[20vh]",
           "w-full absolute z-10"
         )}>
         <div className="w-fit text-center mx-auto justify-self-center bg pb-8">
@@ -54,59 +183,59 @@ export default function Index() {
         width={500}
         height={500}
         className={classNames(
-          entered ? "animate-side-slide" : "right-0 left-0",
-          "mx-auto justify-self-start absolute bottom-0 z-10"
+          entered && "opacity-0",
+          entering && "animate-fade-out",
+          "mx-auto justify-self-start absolute bottom-0 z-10 right-0 left-0"
         )}
       />
       <div
         id="home"
         className={classNames(
-          entered
-            ? "block animate-grow md:p-4 w-full h-full bg-light-white"
-            : "top-[100vh]",
-          "absolute"
+          entering && "animate-grow",
+          entered ? "mt-0" : "mt-[100%]",
+          "absolute block md:p-4 w-full h-full bg-light-white"
         )}>
-        {entered && (
-          <>
+        <>
+          <div
+            className={classNames(
+              entering ? "animate-fade-in" : "opacity-0",
+              entered && "opacity-[100%]",
+              "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-light-white -ml-4 pl-4"
+            )}>
+            <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
             <div
               className={classNames(
-                entered &&
-                  "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-light-white -ml-4 pl-4",
-                entered && "animate-fade-in"
+                showNav ? "opacity-0" : "opacity-100",
+                "mx-auto absolute top-3 left-[38%] transition-opacity"
               )}>
-              <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
-              <div
+              <h2
                 className={classNames(
-                  showNav ? "opacity-0" : "opacity-100",
-                  "mx-auto absolute top-3 left-[38%] transition-opacity"
+                  entering && "animate-fade-in",
+                  entered && "opacity-[100%]",
+                  "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
                 )}>
-                <h2
-                  className={classNames(
-                    entered && "animate-fade-in",
-                    "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
-                  )}>
-                  midwifery
-                </h2>
-              </div>
-              <Link href="/midwifery">
-                <Image
-                  src="/logo-pink.png"
-                  alt=""
-                  width={180}
-                  height={500}
-                  className={classNames(
-                    entered && "animate-fade-in",
-                    showNav ? "opacity-0" : "opacity-100",
-                    "fixed top-7 right-6 transition-opacity hover:brightness-95"
-                  )}
-                />
-              </Link>
+                midwifery
+              </h2>
             </div>
-            <div id="content">
-              <Home />
-            </div>
-          </>
-        )}
+            <Link href="/midwifery">
+              <Image
+                src="/logo-pink.png"
+                alt=""
+                width={180}
+                height={500}
+                className={classNames(
+                  entering && "animate-fade-in",
+                  entered && !showNav && "opacity-[100%]",
+                  showNav ? "opacity-0" : "opacity-100",
+                  "fixed top-7 right-6 transition-opacity hover:brightness-95"
+                )}
+              />
+            </Link>
+          </div>
+          <div id="content">
+            <Home />
+          </div>
+        </>
       </div>
     </main>
   );
