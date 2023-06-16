@@ -1,32 +1,33 @@
 import Nav from "@/components/Nav";
 import classNames from "classnames";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Home from "./home";
 import Link from "next/link";
+import parseContent from "@/lib/parseContent";
 import { getContent } from "@/lib/api";
 
-interface IndexProps {
+export interface IndexProps {
   content: Content;
 }
 
-interface Paragraph {
-  title?: string;
-  content: Array<string>;
+export interface Paragraph {
+  title: string | null;
+  content: Array<string | null>;
 }
 
-interface List {
-  title?: string;
-  content: Array<string>;
+export interface List {
+  title: string | null;
+  content: Array<string | null>;
 }
 
-interface Illustration {
-  src?: string;
-  width?: string;
-  height?: string;
+export interface Illustration {
+  src: string | null;
+  width: string | null;
+  height: string | null;
 }
 
-type Content = Record<
+export type Content = Record<
   string,
   {
     slug: string;
@@ -36,100 +37,51 @@ type Content = Record<
   }
 >;
 
-function extractPreTagContent(htmlString: string) {
-  const regex = /<pre[^>]*>(.*?)<\/pre>/g;
-  const matches = htmlString.match(regex);
-
-  if (matches) {
-    const contentArray = matches.map((match) => {
-      const contentRegex = /<pre[^>]*>(.*?)<\/pre>/;
-      const matchResult = contentRegex.exec(match);
-      return matchResult?.[1] || "";
-    });
-    return contentArray;
-  }
-
-  return [];
-}
-
 export async function getStaticProps({ preview = false }) {
   const res = await getContent();
 
-  const content: Content = {};
-
-  (() => {
-    for (const idx in res.categories.nodes) {
-      const obj = res.categories.nodes[idx];
-      const wpContent = obj.posts.nodes;
-
-      const sorted = wpContent.reduce(
-        (acc: any, current: any, idx: any) => {
-          return (() => {
-            const tags = current.tags.nodes.map((obj: any) => obj.name);
-            const regexTitle = /<h2[^>]*>(.*?)<\/h2>/;
-
-            if (tags.includes("illustration")) {
-              const regexSrc = /src="([^"]+)"/;
-              const regexWidth = /width="([^"]+)"/;
-              const regexHeight = /height="([^"]+)"/;
-
-              const illustration: Illustration = {
-                src: regexSrc.exec(current.content)?.[1],
-                width: regexWidth.exec(current.content)?.[1],
-                height: regexHeight.exec(current.content)?.[1],
-              };
-              acc["illustrations"].push(illustration);
-            }
-
-            if (tags.includes("paragraph")) {
-              const paragraph: Paragraph = {
-                title: regexTitle.exec(current.content)?.[1],
-                content: extractPreTagContent(current.content),
-              };
-              acc["paragraphs"].push(paragraph);
-            }
-
-            if (tags.includes("list")) {
-              const list: List = {
-                title: regexTitle.exec(current.content)?.[1],
-                content: extractPreTagContent(current.content),
-              };
-              acc["lists"].push(list);
-            }
-
-            return acc;
-          })();
-        },
-        {
-          illustrations: [],
-          paragraphs: [],
-          lists: [],
-        }
-      );
-
-      content[obj.slug] = {
-        slug: obj.slug,
-        ...sorted,
-      };
-    }
-  })();
+  const content = parseContent(res);
 
   return {
     props: { content },
   };
 }
 
-export default function Index({ content }: IndexProps) {
-  const setSessionValue = () => {
-    if (typeof window !== "undefined") {
-      const sessionValue = window.sessionStorage.getItem("entered");
-      return sessionValue === "true";
-    }
-  };
+const useLocalStorage = (
+  key: string,
+  initialValue: string
+): [string, Dispatch<SetStateAction<string>>] => {
+  const [value, setValue] = useState(initialValue);
+  const [initialized, setInitialized] = useState(false);
 
-  const [entered, setEntered] = useState(setSessionValue);
+  useEffect(() => {
+    const storedValue = window.sessionStorage.getItem(key);
+
+    if (storedValue !== null) {
+      setValue(storedValue);
+    } else {
+      setValue(initialValue);
+    }
+
+    setInitialized(true);
+  }, [key, initialValue]);
+
+  useEffect(() => {
+    if (initialized) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  }, [key, value, initialized]);
+
+  return [value, setValue];
+};
+
+export default function Index({ content }: IndexProps) {
+  const [visited, setVisted] = useLocalStorage("entered", "false");
   const [entering, setEntering] = useState(false);
   const [showNav, toggleNav] = useState(false);
+  const entered = visited === "true";
+
+  console.log({ content });
 
   const enter = () => {
     if (typeof window !== "undefined") {
@@ -137,7 +89,7 @@ export default function Index({ content }: IndexProps) {
       setEntering(true);
     }
     setTimeout(() => {
-      setEntered(setSessionValue);
+      setVisted("true");
       setEntering(false);
     }, 3000);
   };
@@ -153,14 +105,14 @@ export default function Index({ content }: IndexProps) {
           entered ? "-top-[50vh]" : "top-[20vh]",
           "w-full absolute z-10"
         )}>
-        <div className="w-fit text-center mx-auto justify-self-center bg pb-8">
+        <div className="w-fit h-auto text-center mx-auto justify-self-center bg pb-8">
           <div>
             <Image
               src="/logo.png"
               alt=""
               width={1000}
               height={500}
-              className="mx-auto"
+              className="mx-auto h-auto w-auto"
             />
             <div className="flex flex-row justify-between ml-2 mr-16 text-3xl text-green tracking-widest">
               <h2 className="">midwifery</h2>
@@ -185,11 +137,10 @@ export default function Index({ content }: IndexProps) {
         className={classNames(
           entered && "opacity-0",
           entering && "animate-fade-out",
-          "mx-auto justify-self-start absolute bottom-0 z-10 right-0 left-0"
+          "mx-auto justify-self-start absolute bottom-0 z-10 right-0 left-0 h-auto w-auto"
         )}
       />
       <div
-        id="home"
         className={classNames(
           entering && "animate-grow",
           entered ? "mt-0" : "mt-[100%]",
@@ -214,10 +165,10 @@ export default function Index({ content }: IndexProps) {
                   entered && "opacity-[100%]",
                   "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
                 )}>
-                midwifery
+                welcome!
               </h2>
             </div>
-            <Link href="/midwifery">
+            <Link href="/">
               <Image
                 src="/logo-pink.png"
                 alt=""
@@ -227,7 +178,7 @@ export default function Index({ content }: IndexProps) {
                   entering && "animate-fade-in",
                   entered && !showNav && "opacity-[100%]",
                   showNav ? "opacity-0" : "opacity-100",
-                  "fixed top-7 right-6 transition-opacity hover:brightness-95"
+                  "fixed top-7 right-6 transition-opacity hover:brightness-95 h-auto w-auto"
                 )}
               />
             </Link>

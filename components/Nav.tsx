@@ -45,7 +45,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
             !showNav && "cursor-default",
             "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
           )}
-          href={showNav ? "ayurveda" : ""}>
+          href={showNav ? "/ayurveda" : ""}>
           ayurveda
         </Link>
         <Link
@@ -53,7 +53,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
             !showNav && "cursor-default",
             "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
           )}
-          href={showNav ? "about" : ""}>
+          href={showNav ? "/about" : ""}>
           about meadowsweet
         </Link>
       </nav>

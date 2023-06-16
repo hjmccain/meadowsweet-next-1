@@ -95,7 +95,7 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
         height={300}
         className={classNames(
           // entered ? "animate-side-slide" : "right-0 left-0",
-          "fixed bottom-0 left-2 z-20"
+          "fixed bottom-0 left-2 z-20 h-auto w-auto"
         )}
       />
       <Image
@@ -105,7 +105,7 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
         height={300}
         className={classNames(
           // entered ? "animate-side-slide" : "right-0 left-0",
-          "fixed bottom-0 right-2 z-20"
+          "fixed bottom-0 right-2 z-20 h-auto w-auto"
         )}
       />
 
