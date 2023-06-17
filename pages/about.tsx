@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import ContentPage from "./contentPage";
-import { IndexProps } from ".";
+import { ContentSection } from ".";
 import { getContent } from "@/lib/api";
 import parseContent from "@/lib/parseContent";
 
@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AboutProps = IndexProps & {};
+type AboutProps = { content: ContentSection };
 
 const About: React.FC<AboutProps> = ({ content }) => {
   return (

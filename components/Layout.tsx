@@ -20,21 +20,9 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
       <>
         <div
           className={classNames(
-            "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-light-white -ml-4 pl-4"
+            "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-not-white -ml-4 pl-4 opacity-90"
           )}>
           <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
-          <div
-            className={classNames(
-              showNav ? "opacity-0" : "opacity-100",
-              "mx-auto absolute top-3 left-[38%] transition-opacity"
-            )}>
-            <h2
-              className={classNames(
-                "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
-              )}>
-              {currentPage}
-            </h2>
-          </div>
           <Link href="/">
             <Image
               src="/logo-pink.png"
@@ -48,7 +36,17 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
             />
           </Link>
         </div>
-        <div id="content">{children}</div>
+        <div className={classNames("mx-auto transition-opacity p-4 mt-24")}>
+          <h2
+            className={classNames(
+              "text-center text-7xl text-peach cursor-default"
+            )}>
+            {currentPage}
+          </h2>
+        </div>
+        <div className="" id="content">
+          {children}
+        </div>
       </>
     </div>
   );

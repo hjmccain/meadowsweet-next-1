@@ -16,6 +16,23 @@ function extractPreTagContent(htmlString: string) {
   return [];
 }
 
+function extractListContent(string: string) {
+  const pattern =
+    /<h3 class="wp-block-heading">(.*?)<\/h3>[\s\S]*?<pre class="wp-block-preformatted">(.*?)<\/pre>/g;
+  const matches = string.matchAll(pattern);
+  const result = [];
+
+  for (const match of Array.from(matches)) {
+    const obj = {
+      h3: match[1].trim(),
+      pre: match[2].trim(),
+    };
+    result.push(obj);
+  }
+
+  return result;
+}
+
 const parseContent = (res: any): Content => {
   return res.categories.nodes.reduce((obj: any, node: any) => {
     const slug = node.slug;
@@ -51,7 +68,7 @@ const parseContent = (res: any): Content => {
           if (tags.includes("list")) {
             const list: List = {
               title: regexTitle.exec(current.content)?.[1] || null,
-              content: extractPreTagContent(current.content),
+              content: extractListContent(current.content),
             };
             acc["lists"].push(list);
           }

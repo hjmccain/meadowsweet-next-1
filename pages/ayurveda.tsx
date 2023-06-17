@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { IndexProps } from ".";
+import { ContentSection } from ".";
 import ContentPage from "./contentPage";
 import { getContent } from "@/lib/api";
 import parseContent from "@/lib/parseContent";
@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AyurvedaProps = IndexProps & {};
+type AyurvedaProps = { content: ContentSection };
 
 const Ayurveda: React.FC<AyurvedaProps> = ({ content }) => {
   console.log({ content });

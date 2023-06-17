@@ -7,8 +7,8 @@ import Link from "next/link";
 
 const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
   return (
-    <div className="mt-16 pt-12">
-      <div className="py-8 w-9/12 mx-auto bg-light-white relative z-20">
+    <div>
+      <div className="py-8 w-9/12 mx-auto bg-light-pink relative z-20">
         <Image
           src="/images/placeholder2.jpg"
           alt=""
@@ -17,7 +17,7 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
           className="mx-auto"
         />
       </div>
-      <div className="bg-not-white w-9/12 mx-auto px-12 pt-2 pb-8 rounded-xl mb-80 relative z-10">
+      <div className="bg-pink-light w-9/12 mx-auto px-12 pt-2 pb-8 rounded-xl mb-80 relative z-10">
         {/* <h2 className="mx-8 mb-8 mt-4 text-center text-5xl">Midwifery</h2> */}
         <div className="m-8 mt-12 text-xl">
           <Paragraph

@@ -27,7 +27,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
         <Link
           className={classNames(
             !showNav && "cursor-default",
-            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
+            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-green text-black p-2 rounded-lg hover:brightness-90"
           )}
           href={showNav ? "/midwifery" : ""}>
           midwifery
@@ -35,7 +35,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
         <Link
           className={classNames(
             !showNav && "cursor-default",
-            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
+            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-green text-black p-2 rounded-lg hover:brightness-90"
           )}
           href={showNav ? "/abdominal-massage" : ""}>
           abdominal massage
@@ -43,7 +43,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
         <Link
           className={classNames(
             !showNav && "cursor-default",
-            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
+            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-green text-black p-2 rounded-lg hover:brightness-90"
           )}
           href={showNav ? "/ayurveda" : ""}>
           ayurveda
@@ -51,7 +51,7 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
         <Link
           className={classNames(
             !showNav && "cursor-default",
-            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-black p-2 rounded-lg hover:brightness-90"
+            "w-1/4 inline-block text-center transition-all hover:tracking-widest hover:text-green text-black p-2 rounded-lg hover:brightness-90"
           )}
           href={showNav ? "/about" : ""}>
           about meadowsweet

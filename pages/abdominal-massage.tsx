@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import ContentPage from "./contentPage";
 import parseContent from "@/lib/parseContent";
-import { IndexProps } from ".";
+import { ContentSection } from ".";
 import { getContent } from "@/lib/api";
 
 export async function getStaticProps({ preview = false }) {
@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AbdominalMassageProps = IndexProps & {};
+type AbdominalMassageProps = { content: ContentSection };
 
 const AbdominalMassage: React.FC<AbdominalMassageProps> = ({ content }) => {
   return (

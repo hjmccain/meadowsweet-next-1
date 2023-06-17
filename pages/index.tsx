@@ -7,7 +7,7 @@ import Link from "next/link";
 import parseContent from "@/lib/parseContent";
 import { getContent } from "@/lib/api";
 
-export interface IndexProps {
+interface IndexProps {
   content: Content;
 }
 
@@ -16,9 +16,14 @@ export interface Paragraph {
   content: Array<string | null>;
 }
 
+export interface ListItem {
+  h3: string;
+  pre: string;
+}
+
 export interface List {
   title: string | null;
-  content: Array<string | null>;
+  content: Array<ListItem | null>;
 }
 
 export interface Illustration {
@@ -27,15 +32,13 @@ export interface Illustration {
   height: string | null;
 }
 
-export type Content = Record<
-  string,
-  {
-    slug: string;
-    paragraphs: Array<Paragraph>;
-    lists: Array<List>;
-    illustrations: Array<Illustration>;
-  }
->;
+export interface ContentSection {
+  paragraphs: Array<Paragraph>;
+  lists: Array<List>;
+  illustrations: Array<Illustration>;
+}
+
+export type Content = Record<string, ContentSection>;
 
 export async function getStaticProps({ preview = false }) {
   const res = await getContent();
@@ -150,24 +153,10 @@ export default function Index({ content }: IndexProps) {
           <div
             className={classNames(
               entering ? "animate-fade-in" : "opacity-0",
-              entered && "opacity-[100%]",
-              "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-light-white -ml-4 pl-4"
+              entered && "opacity-[90%]",
+              "flex fixed w-full z-30 -top-3 h-24 pt-3 bg-not-white -ml-4 pl-4"
             )}>
             <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
-            <div
-              className={classNames(
-                showNav ? "opacity-0" : "opacity-100",
-                "mx-auto absolute top-3 left-[38%] transition-opacity"
-              )}>
-              <h2
-                className={classNames(
-                  entering && "animate-fade-in",
-                  entered && "opacity-[100%]",
-                  "mx-8 mb-8 mt-4 text-center text-5xl text-green cursor-default"
-                )}>
-                welcome!
-              </h2>
-            </div>
             <Link href="/">
               <Image
                 src="/logo-pink.png"
@@ -183,8 +172,21 @@ export default function Index({ content }: IndexProps) {
               />
             </Link>
           </div>
-          <div id="content">
-            <Home />
+          <div className={classNames("mx-auto transition-opacity p-4 mt-24")}>
+            <h2
+              className={classNames(
+                "text-center text-7xl text-peach cursor-default"
+              )}>
+              welcome!
+            </h2>
+          </div>
+          <div
+            className={classNames(
+              entering ? "animate-fade-in" : "opacity-0",
+              entered && "opacity-[90%]"
+            )}
+            id="content">
+            <Home content={content.philosophy} />
           </div>
         </>
       </div>

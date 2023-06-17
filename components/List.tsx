@@ -12,7 +12,7 @@ const List: React.FC<ListProps> = ({}) => {
       </h4>
       <ul className="list-none">
         <li className="flex mb-4">
-          <Spiral1 width={"50px"} color="#000" />
+          <Spiral1 width={"50px"} color="#ddd06a" />
           <p className="ml-4">
             Consectetur libero — Id faucibus nisl tincidunt eget nullam. Quis
             viverra nibh cras pulvinar mattis nunc sed. Eu nisl nunc mi ipsum
@@ -21,7 +21,7 @@ const List: React.FC<ListProps> = ({}) => {
           </p>
         </li>
         <li className="flex mb-4">
-          <Spiral2 width={"50px"} color="#000" />
+          <Spiral2 width={"50px"} color="#ddd06a" />
           <p className="ml-4">
             Egestas fringilla phasellus — Faucibus scelerisque eleifend donec
             pretium vulputate sapien. Vitae purus faucibus ornare suspendisse.
@@ -29,7 +29,7 @@ const List: React.FC<ListProps> = ({}) => {
           </p>
         </li>
         <li className="flex mb-4">
-          <Spiral1 width={"50px"} color="#000" />
+          <Spiral1 width={"50px"} color="#ddd06a" />
           <p className="ml-4">
             Interdum — Varius sit amet mattis vulputate enim. Aliquam sem et
             tortor consequat id porta nibh venenatis. Porttitor rhoncus dolor
@@ -40,7 +40,7 @@ const List: React.FC<ListProps> = ({}) => {
           </p>
         </li>
         <li className="flex mb-4">
-          <Spiral2 width={"50px"} color="#000" />
+          <Spiral2 width={"50px"} color="#ddd06a" />
           <p className="ml-4">
             Duis aute — Irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur.
