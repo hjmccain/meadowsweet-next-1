@@ -7,8 +7,8 @@ import Link from "next/link";
 
 const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
   return (
-    <div>
-      <div className="py-8 w-9/12 mx-auto bg-light-pink relative z-20">
+    <div className="mt-8">
+      {/* <div className="py-8 w-8/12 mx-auto relative z-20">
         <Image
           src="/images/placeholder2.jpg"
           alt=""
@@ -16,19 +16,28 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
           height={500}
           className="mx-auto"
         />
-      </div>
-      <div className="bg-pink-light w-9/12 mx-auto px-12 pt-2 pb-8 rounded-xl mb-80 relative z-10">
-        {/* <h2 className="mx-8 mb-8 mt-4 text-center text-5xl">Midwifery</h2> */}
-        <div className="m-8 mt-12 text-xl">
-          <Paragraph
-            title="Cycle support through an Ayurvedic lens"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      </div> */}
+      {/* <h2 className="mx-8 mb-8 mt-4 text-center text-5xl">Midwifery</h2> */}
+      <div className="m-8 mt-12 text-xl">
+        <div className="mb-8 mx-auto drop-shadow">
+          <Image
+            src="/images/placeholder2.jpg"
+            alt=""
+            width={1500}
+            height={500}
+            className="mx-auto"
+          />
+        </div>
+        <Paragraph
+          title="Cycle support through an Ayurvedic lens"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
             commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
             velit esse cillum dolore eu fugiat nulla pariatur."
-          />
-          <div className="mb-8 w-1/2 mx-auto">
+        />
+        <hr className="mb-8 border-green" />
+        {/* <div className="mb-8 w-1/2 mx-auto">
             <Image
               src="/images/placeholder-vertical.jpg"
               alt=""
@@ -36,11 +45,12 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
               height={500}
               className="mx-auto"
             />
-          </div>
-          <List />
-          <Paragraph
-            title="Ayurvedic support for pregnancy"
-            text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+          </div> */}
+        <List />
+        <hr className="mb-8 border-green" />
+        <Paragraph
+          title="Ayurvedic support for pregnancy"
+          text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
             officia deserunt mollit anim id est laborum. Rhoncus aenean vel elit
             scelerisque mauris pellentesque. Egestas fringilla phasellus faucibus
             scelerisque eleifend donec pretium vulputate sapien. Vitae purus
@@ -51,9 +61,9 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
             sit amet nisl suscipit adipiscing bibendum est. Condimentum vitae
             sapien pellentesque habitant morbi. Purus semper eget duis at.
             Scelerisque eleifend donec pretium vulputate sapien."
-          />
-          <Paragraph
-            text="Pharetra convallis posuere morbi leo urna. Platea dictumst vestibulum
+        />
+        <Paragraph
+          text="Pharetra convallis posuere morbi leo urna. Platea dictumst vestibulum
             rhoncus est pellentesque. Quisque non tellus orci ac auctor. Quis enim
             lobortis scelerisque fermentum. Vivamus at augue eget arcu dictum. Sit
             amet cursus sit amet dictum sit. Interdum velit laoreet id donec. Nibh
@@ -68,52 +78,26 @@ const ContentPage: React.FC<{ content: ReactNode }> = ({ content }) => {
             adipiscing elit pellentesque habitant morbi. Fermentum leo vel orci
             porta. Enim blandit volutpat maecenas volutpat blandit. Vitae
             ultricies leo integer malesuada nunc vel risus."
+        />
+        <hr className="mb-8 border-green" />
+        <div className="mb-8 drop-shadow">
+          <Image
+            src="/images/placeholder1.jpg"
+            alt=""
+            width={1500}
+            height={500}
+            className="mx-auto"
           />
-          <div className="mb-8">
-            <Image
-              src="/images/placeholder1.jpg"
-              alt=""
-              width={1500}
-              height={500}
-              className="mx-auto"
-            />
-          </div>
-          <Paragraph
-            title="Womb support"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        </div>
+        <Paragraph
+          title="Womb support"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
             commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
             velit esse cillum dolore eu fugiat nulla pariatur."
-          />
-        </div>
+        />
       </div>
-      <Image
-        src="/images/floral.png"
-        alt=""
-        width={300}
-        height={300}
-        className={classNames(
-          // entered ? "animate-side-slide" : "right-0 left-0",
-          "fixed bottom-0 left-2 z-20 h-auto w-auto"
-        )}
-      />
-      <Image
-        src="/images/floral.png"
-        alt=""
-        width={300}
-        height={300}
-        className={classNames(
-          // entered ? "animate-side-slide" : "right-0 left-0",
-          "fixed bottom-0 right-2 z-20 h-auto w-auto"
-        )}
-      />
-
-      <Link
-        className="fixed bottom-0 left-0 right-0 mx-auto p-4 bg-green w-1/4 mb-12 text-center text-2xl"
-        href="">
-        Contact Meadowsweet
-      </Link>
     </div>
   );
 };

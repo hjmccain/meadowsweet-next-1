@@ -14,11 +14,9 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AyurvedaProps = { content: ContentSection };
+type AyurvedaProps = { content?: ContentSection };
 
 const Ayurveda: React.FC<AyurvedaProps> = ({ content }) => {
-  console.log({ content });
-
   return (
     <Layout currentPage="ayurveda">
       <ContentPage content="I am the ayurveda page" />

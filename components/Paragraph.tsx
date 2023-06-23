@@ -10,7 +10,7 @@ const Paragraph: React.FC<ParagraphProps> = ({ text, title }) => {
     <div className="mb-8">
       {title && (
         <>
-          <h4 className="mb-4 p-4 border-pink-bright border text-2xl bg-white text-center">
+          <h4 className="mb-4 p-4 border-green border text-2xl bg-pink-light text-center drop-shadow">
             {title}
           </h4>
         </>

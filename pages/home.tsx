@@ -4,7 +4,7 @@ import ContentPage from "./contentPage";
 import { getContent } from "@/lib/api";
 import parseContent from "@/lib/parseContent";
 
-type HomeProps = { content: ContentSection };
+type HomeProps = { content?: ContentSection };
 
 const Home: React.FC<HomeProps> = ({ content }) => {
   return (

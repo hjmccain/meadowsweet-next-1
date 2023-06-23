@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AbdominalMassageProps = { content: ContentSection };
+type AbdominalMassageProps = { content?: ContentSection };
 
 const AbdominalMassage: React.FC<AbdominalMassageProps> = ({ content }) => {
   return (

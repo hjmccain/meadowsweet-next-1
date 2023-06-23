@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type AboutProps = { content: ContentSection };
+type AboutProps = { content?: ContentSection };
 
 const About: React.FC<AboutProps> = ({ content }) => {
   return (

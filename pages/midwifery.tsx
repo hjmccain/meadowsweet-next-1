@@ -14,7 +14,7 @@ export async function getStaticProps({ preview = false }) {
   };
 }
 
-type MidwiferyProps = { content: ContentSection };
+type MidwiferyProps = { content?: ContentSection };
 
 const Midwifery: React.FC<MidwiferyProps> = ({ content }) => {
   console.log(content);
