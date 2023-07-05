@@ -19,11 +19,13 @@ const List: React.FC<ListProps> = ({ title, listArray }) => {
       <ul className="list-none text-left">
         {(nonNullListArray as Array<TextItem>).map((el: TextItem, idx) => {
           const nonNullPre = el.pre.filter((str) => str);
-          const formattedPre = nonNullPre.map((str) => (
-            <p className="mt-4">{str}</p>
+          const formattedPre = nonNullPre.map((str, idx) => (
+            <p key={idx} className="mt-4">
+              {str}
+            </p>
           ));
           return (
-            <li className="flex mb-4 items-start">
+            <li key={idx} className="flex mb-4 items-start">
               <div className="mt-2">
                 {idx % 2 === 0 ? (
                   <Spiral1 width={"50px"} color="#000" />
