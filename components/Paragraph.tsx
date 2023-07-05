@@ -1,23 +1,47 @@
+import { TextItem } from "@/pages";
 import classNames from "classnames";
 
 interface ParagraphProps {
-  text: string;
-  title?: string;
+  text?: Array<TextItem | null>;
+  title?: string | null;
 }
 
 const Paragraph: React.FC<ParagraphProps> = ({ text, title }) => {
-  return (
+  const nonNullTextArray = text?.filter((el: TextItem | null) => el) || false;
+
+  return nonNullTextArray ? (
     <div className="mb-8">
       {title && (
         <>
-          <h4 className="mb-4 p-4 border-green border text-2xl bg-pink-light text-center drop-shadow">
+          <h4 className="mb-4 p-4 border-green border text-3xl text-center drop-shadow">
             {title}
           </h4>
         </>
       )}
-      <p className="">{text}</p>
+      <div className="pt-2">
+        {(nonNullTextArray as Array<TextItem>).map((el: TextItem, idx) => {
+          const nonNullPre = el.pre.filter((str) => str);
+          const formattedPre = nonNullPre.map((str) => (
+            <p className="mt-4">{str}</p>
+          ));
+          return (
+            <>
+              {el.h3 ? (
+                <div className="ml-4 mb-4">
+                  <div className="italic font-extrabold text-center pt-4 text-2xl">
+                    {el.h3}
+                  </div>{" "}
+                  {formattedPre}
+                </div>
+              ) : (
+                <div className="ml-4 my-4">{formattedPre}</div>
+              )}
+            </>
+          );
+        })}
+      </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Paragraph;

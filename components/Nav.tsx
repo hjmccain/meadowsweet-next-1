@@ -11,7 +11,6 @@ interface NavProps {
 
 const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
   const pathName = usePathname();
-  console.log({ pathName });
 
   return (
     <div

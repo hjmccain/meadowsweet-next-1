@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -11,6 +12,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
   const [showNav, toggleNav] = useState(false);
+  const pathName = usePathname();
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -77,10 +79,10 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
                 className={classNames(
                   "text-center text-7xl text-green cursor-default drop-shadow-sm"
                 )}>
-                welcome!
+                {pathName.replace(/^\/|-/g, " ")}
               </h2>
             </div>
-            {children}
+            <div className="mt-8 text-xl">{children}</div>
           </div>
         </div>
 

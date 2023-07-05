@@ -13,17 +13,17 @@ interface IndexProps {
 
 export interface Paragraph {
   title: string | null;
-  content: Array<string | null>;
+  content: Array<TextItem | null>;
 }
 
-export interface ListItem {
-  h3: string;
-  pre: string;
+export interface TextItem {
+  h3: string | null;
+  pre: Array<string>;
 }
 
 export interface List {
   title: string | null;
-  content: Array<ListItem | null>;
+  content: Array<TextItem | null>;
 }
 
 export interface Illustration {
@@ -206,7 +206,7 @@ export default function Index({ content }: IndexProps) {
                 "relative top-[30px] left-0 right-0 h-auto w-auto mx-auto rotate-[275deg] z-30"
               )}
             />
-            <div className="bg-light-white w-8/12 mx-auto px-12 pt-2 pb-8 mb-80 relative z-20 bg-opacity-90 drop-shadow-md -mt-36">
+            <div className="bg-light-white w-8/12 mx-auto px-12 pt-2 pb-8 mb-80 relative z-20 bg-opacity-90 drop-shadow-md -mt-36 text-xl">
               <div className={classNames("mx-auto transition-opacity mt-8")}>
                 <h2
                   className={classNames(
@@ -221,7 +221,7 @@ export default function Index({ content }: IndexProps) {
           <div className="w-full text-center mb-12">
             <Link
               className={classNames(
-                "p-4 bg-green w-1/4 text-center text-2xl drop-shadow"
+                "p-4 bg-green w-1/4 text-center text-2xl drop-shadow hover:bg-light-white hover:text-pink-bright"
               )}
               href="">
               Contact Meadowsweet

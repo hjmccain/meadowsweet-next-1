@@ -1,54 +1,49 @@
+import { TextItem } from "@/pages";
 import Spiral1 from "@/public/icons/Spiral1";
 import Spiral2 from "@/public/icons/Spiral2";
-import classNames from "classnames";
 
-interface ListProps {}
+interface ListProps {
+  title?: string | null;
+  listArray?: Array<TextItem | null> | null;
+}
 
-const List: React.FC<ListProps> = ({}) => {
-  return (
-    <div className="border border-black p-4 bg-light-white mb-8 drop-shadow">
-      <h4 className="mb-4 text-2xl pl-3">
-        Pregnancy, Birth Preparation & Postpartum treatments
-      </h4>
-      <ul className="list-none">
-        <li className="flex mb-4">
-          <Spiral1 width={"50px"} color="#000" />
-          <p className="ml-4">
-            Consectetur libero — Id faucibus nisl tincidunt eget nullam. Quis
-            viverra nibh cras pulvinar mattis nunc sed. Eu nisl nunc mi ipsum
-            faucibus vitae aliquet nec ullamcorper. Pharetra diam sit amet nisl
-            suscipit adipiscing bibendum est.
-          </p>
-        </li>
-        <li className="flex mb-4">
-          <Spiral2 width={"50px"} color="#000" />
-          <p className="ml-4">
-            Egestas fringilla phasellus — Faucibus scelerisque eleifend donec
-            pretium vulputate sapien. Vitae purus faucibus ornare suspendisse.
-            Eros donec ac odio tempor orci dapibus ultrices in iaculis.
-          </p>
-        </li>
-        <li className="flex mb-4">
-          <Spiral1 width={"50px"} color="#000" />
-          <p className="ml-4">
-            Interdum — Varius sit amet mattis vulputate enim. Aliquam sem et
-            tortor consequat id porta nibh venenatis. Porttitor rhoncus dolor
-            purus non enim praesent. Et sollicitudin ac orci phasellus egestas
-            tellus rutrum tellus. Laoreet sit amet cursus sit. Consectetur
-            adipiscing elit pellentesque habitant morbi. Fermentum leo vel orci
-            porta.
-          </p>
-        </li>
-        <li className="flex mb-4">
-          <Spiral2 width={"50px"} color="#000" />
-          <p className="ml-4">
-            Duis aute — Irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur.
-          </p>
-        </li>
+const List: React.FC<ListProps> = ({ title, listArray }) => {
+  const nonNullListArray =
+    listArray?.filter((el: TextItem | null) => el) || false;
+
+  return nonNullListArray ? (
+    <div className="border border-black p-4 bg-light-white mb-8 drop-shadow text-center">
+      {title && (
+        <h4 className="mb-4 text-3xl pl-3 bg-green/20 py-2">{title}</h4>
+      )}
+      <ul className="list-none text-left">
+        {(nonNullListArray as Array<TextItem>).map((el: TextItem, idx) => {
+          const nonNullPre = el.pre.filter((str) => str);
+          const formattedPre = nonNullPre.map((str) => (
+            <p className="mt-4">{str}</p>
+          ));
+          return (
+            <li className="flex mb-4 items-start">
+              <div className="mt-2">
+                {idx % 2 === 0 ? (
+                  <Spiral1 width={"50px"} color="#000" />
+                ) : (
+                  <Spiral2 width={"50px"} color="#000" />
+                )}
+              </div>
+              {el.h3 ? (
+                <div className="ml-4 my-4">
+                  <strong className="italic">{el.h3}</strong> {formattedPre}
+                </div>
+              ) : (
+                <div className="ml-4 mt-4">{formattedPre}</div>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
-  );
+  ) : null;
 };
 
 export default List;

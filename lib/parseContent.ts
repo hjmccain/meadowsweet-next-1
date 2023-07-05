@@ -1,36 +1,60 @@
 import { Illustration, Paragraph, List, Content } from "@/pages";
 
-function extractPreTagContent(htmlString: string) {
-  const regex = /<pre[^>]*>(.*?)<\/pre>/g;
-  const matches = htmlString.match(regex);
+// function extractPreTagContent(htmlString: string) {
+//   const regex = /<pre[^>]*>(.*?)<\/pre>/g;
+//   const matches = htmlString.match(regex);
 
-  if (matches) {
-    const contentArray = matches.map((match) => {
-      const contentRegex = /<pre[^>]*>(.*?)<\/pre>/;
-      const matchResult = contentRegex.exec(match);
-      return matchResult?.[1] || "";
-    });
-    return contentArray;
-  }
+//   if (matches) {
+//     const contentArray = matches.map((match) => {
+//       const contentRegex = /<pre[^>]*>(.*?)<\/pre>/;
+//       const matchResult = contentRegex.exec(match);
+//       return matchResult?.[1] || "";
+//     });
+//     return contentArray;
+//   }
 
-  return [];
-}
+//   return [];
+// }
 
-function extractListContent(string: string) {
-  const pattern =
-    /<h3 class="wp-block-heading">(.*?)<\/h3>[\s\S]*?<pre class="wp-block-preformatted">(.*?)<\/pre>/g;
-  const matches = string.matchAll(pattern);
-  const result = [];
+function replaceHTMLEntityCodes(str: string) {
+  // Define the replacement mapping
+  const replacements: Record<string, string> = {
+    "&#8221;": '"',
+    "&#8217;": "'",
+    "&amp;": "&",
+  };
 
-  for (const match of Array.from(matches)) {
-    const obj = {
-      h3: match[1].trim(),
-      pre: match[2].trim(),
-    };
-    result.push(obj);
+  // Replace the HTML entity codes with corresponding characters
+  let result = str;
+  for (const entityCode in replacements) {
+    const regex = new RegExp(entityCode, "g");
+    result = result.replace(regex, replacements[entityCode]);
   }
 
   return result;
+}
+
+function extractListContent(string: string) {
+  const regex =
+    /<h3[^>]*>(.*?)<\/h3>\s*?<pre[^>]*>((?:.|\n)*?)<\/pre>|<pre[^>]*>((?:.|\n)*?)<\/pre>/g;
+  const matches = [];
+  let match;
+
+  while ((match = regex.exec(string)) !== null) {
+    const [, h3Content, preContent1, preContent2] = match;
+    const preContent = preContent1 || preContent2;
+    const preArray = preContent
+      .trim()
+      .split("\n")
+      .map((item) => item.trim());
+    const obj = {
+      h3: h3Content ? replaceHTMLEntityCodes(h3Content.trim()) : null,
+      pre: preArray,
+    };
+    matches.push(obj);
+  }
+
+  return matches;
 }
 
 const parseContent = (res: any): Content => {
@@ -60,7 +84,7 @@ const parseContent = (res: any): Content => {
           if (tags.includes("paragraph")) {
             const paragraph: Paragraph = {
               title: regexTitle.exec(current.content)?.[1] || null,
-              content: extractPreTagContent(current.content),
+              content: extractListContent(current.content),
             };
             acc["paragraphs"].push(paragraph);
           }
