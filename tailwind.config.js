@@ -15,7 +15,8 @@ module.exports = {
       colors: {
         "light-white": "#fefefe",
         "not-white": "#faf6f6",
-        green: "#ddd06a",
+        green: "#bdae38",
+        // green: "#ddd06a",
         peach: "#fab787",
         "pink-light": "#f3e7e7",
         "pink-bright": "#fb6eb4",

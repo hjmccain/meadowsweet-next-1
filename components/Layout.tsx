@@ -16,29 +16,9 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
 
   return (
     <div className="relative h-full overflow-hidden">
-      <Image
-        src="/images/Dwarf-Chryseis-Chryseis-Compacta.png"
-        alt=""
-        width={300}
-        height={300}
-        className={classNames(
-          "-bottom-7",
-          "mx-auto justify-self-start absolute -bottom-7 z-10 right-0 h-[400px] w-auto"
-        )}
-      />
-      <Image
-        src="/images/Dwarf-Chryseis-Chryseis-Compacta.png"
-        alt=""
-        width={300}
-        height={300}
-        className={classNames(
-          "-bottom-7",
-          "mx-auto justify-self-start absolute -bottom-7 z-10 left-0 h-[400px] w-auto scale-x-[-1]"
-        )}
-      />
       <div
         className={classNames(
-          "md:p-4 w-full bg-[url('/images/bg-wave.png')] bg-cover bg-fixed transition-all duration-[3000ms] font-serif bg-not-white",
+          "md:p-4 w-full transition-all duration-[3000ms] font-serif bg-not-white min-h-screen",
           "bg-opacity-[100%]"
         )}>
         <div
@@ -61,40 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
             />
           </Link>
         </div>
-        <div className="relative">
-          <Image
-            src="/images/Dwarf-Chryseis-Chryseis-Compacta.png"
-            alt=""
-            width={200}
-            height={200}
-            className={classNames(
-              // entering ? "animate-fade-in" : "opacity-0",
-              // "opacity-[100%]",
-              "relative top-[30px] left-0 right-0 h-auto w-auto mx-auto rotate-[275deg] z-30"
-            )}
-          />
-          <div className="bg-light-white w-8/12 mx-auto px-12 pt-2 pb-8 mb-80 relative z-20 bg-opacity-90 drop-shadow-md -mt-36">
-            <div className={classNames("mx-auto transition-opacity mt-8")}>
-              <h2
-                className={classNames(
-                  "text-center text-7xl text-green cursor-default drop-shadow-sm"
-                )}>
-                {pathName.replace(/^\/|-/g, " ")}
-              </h2>
-            </div>
-            <div className="mt-8 text-xl">{children}</div>
-          </div>
-        </div>
-
-        <div className="w-full text-center mb-12">
-          <Link
-            className={classNames(
-              "p-4 bg-green w-1/4 text-center text-2xl drop-shadow"
-            )}
-            href="">
-            Contact Meadowsweet
-          </Link>
-        </div>
+        <div className="relative mt-28 w-8/12 mx-auto">{children}</div>
       </div>
     </div>
   );

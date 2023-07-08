@@ -13,7 +13,7 @@ const MenuIcon = ({ width, color }: { width: string; color?: string }) => {
         <line
           fill="none"
           stroke={color ?? "#000000"}
-          strokeWidth="50"
+          strokeWidth="40"
           strokeMiterlimit="10"
           x1="-0.26"
           y1="67.79"
@@ -23,7 +23,7 @@ const MenuIcon = ({ width, color }: { width: string; color?: string }) => {
         <line
           fill="none"
           stroke={color ?? "#000000"}
-          strokeWidth="50"
+          strokeWidth="40"
           strokeMiterlimit="10"
           x1="-0.26"
           y1="250"
@@ -33,7 +33,7 @@ const MenuIcon = ({ width, color }: { width: string; color?: string }) => {
         <line
           fill="none"
           stroke={color ?? "#000000"}
-          strokeWidth="50"
+          strokeWidth="40"
           strokeMiterlimit="10"
           x1="-0.26"
           y1="432.21"

@@ -10,7 +10,7 @@ const Paragraph: React.FC<ParagraphProps> = ({ text, title }) => {
   const nonNullTextArray = text?.filter((el: TextItem | null) => el) || false;
 
   return nonNullTextArray ? (
-    <div className="mb-8">
+    <div className="mb-8 bg-not-white p-4 drop-shadow">
       {title && (
         <>
           <h4 className="mb-4 p-4 border-green border text-3xl text-center drop-shadow">

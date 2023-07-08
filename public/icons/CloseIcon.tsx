@@ -13,7 +13,7 @@ const CloseIcon = ({ width, color }: { width: string; color?: string }) => {
         <line
           fill="none"
           stroke={color ?? "#000000"}
-          strokeWidth="50"
+          strokeWidth="40"
           strokeMiterlimit="10"
           x1="16.58"
           y1="483.42"
@@ -23,7 +23,7 @@ const CloseIcon = ({ width, color }: { width: string; color?: string }) => {
         <line
           fill="none"
           stroke={color ?? "#000000"}
-          strokeWidth="50"
+          strokeWidth="40"
           strokeMiterlimit="10"
           x1="483.08"
           y1="483.08"
