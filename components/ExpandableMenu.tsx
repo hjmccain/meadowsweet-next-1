@@ -63,6 +63,7 @@ const ExpandableMenu: React.FC<ExpandableMenuProps> = ({ items }) => {
               id={`menuItem-${item.id}`}
               onClick={() => handleClick(item.id)}
               className={classNames(
+                isOpen && "bg-pink-light/40 hover:bg-pink-light/60",
                 "bg-not-white hover:bg-pink-light/40 transition-colors text-4xl text-pink-bright py-4 w-full text-left px-8 flex justify-between rounded-3xl my-2 tracking-wide"
               )}>
               {item.header}
