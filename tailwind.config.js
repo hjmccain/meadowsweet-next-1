@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ['Erika', 'serif'],
-        display: ['Lovegrove', 'serif'],
+        display: ['Apothecary Regular', 'serif'],
       },
       colors: {
         "light-white": "#fefefe",

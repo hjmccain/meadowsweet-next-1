@@ -12,7 +12,7 @@ const List: React.FC<ListProps> = ({ title, listArray }) => {
     listArray?.filter((el: TextItem | null) => el) || false;
 
   return nonNullListArray ? (
-    <div className="border border-black p-4 bg-not-white mb-8 drop-shadow text-center">
+    <div className="border border-black p-4 bg-light-white mb-8 drop-shadow text-center">
       {title && (
         <h4 className="mb-4 text-3xl pl-3 bg-green/20 py-2">{title}</h4>
       )}

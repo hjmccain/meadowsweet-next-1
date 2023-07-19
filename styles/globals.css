@@ -16,6 +16,20 @@
   font-weight: 300; */
 }
 
+@font-face {
+  font-family: "Apothecary Typewriter";
+  src: url("../public/fonts/Apothecary-Typewriter.otf");
+  /* font-style: normal;
+  font-weight: 300; */
+}
+
+@font-face {
+  font-family: "Apothecary Regular";
+  src: url("../public/fonts/Apothecary-Regular.otf");
+  /* font-style: normal;
+  font-weight: 300; */
+}
+
 .bg {
   background: rgb(250, 246, 246);
   background: linear-gradient(

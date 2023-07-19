@@ -6,6 +6,7 @@ import parseContent from "@/lib/parseContent";
 import Paragraph from "@/components/Paragraph";
 import List from "@/components/List";
 import Image from "next/image";
+import ExpandableMenu from "@/components/ExpandableMenu";
 
 export async function getStaticProps({ preview = false }) {
   const res = await getContent();
@@ -23,16 +24,57 @@ const Ayurveda: React.FC<AyurvedaProps> = ({ content }) => {
   console.log({ content });
   const image1 = content?.illustrations[0] || null;
 
+  const items = [
+    {
+      id: "health-counseling",
+      header: "Health Counseling",
+      content: (
+        <Paragraph
+          text={content?.paragraphs[0].content}
+          title={content?.paragraphs[0].title}
+        />
+      ),
+    },
+    {
+      id: "body-treatments",
+      header: "Body Treatments",
+      content: (
+        <List
+          title={content?.lists[0]?.title}
+          listArray={content?.lists[0]?.content}
+        />
+      ),
+    },
+    {
+      id: "faqs",
+      header: "FAQs",
+      content: (
+        <List
+          title={content?.lists[0]?.title}
+          listArray={content?.lists[0]?.content}
+        />
+      ),
+    },
+    {
+      id: "fees",
+      header: "Fees",
+      content: (
+        <List
+          title={content?.lists[0]?.title}
+          listArray={content?.lists[0]?.content}
+        />
+      ),
+    },
+  ];
+
   return (
     <Layout currentPage="ayurveda">
       <>
-        {/** Health counseling */}
-        <Paragraph
-          text={content?.paragraphs[0]?.content}
-          title={content?.paragraphs[0]?.title}
-        />
+        <h1 className="text-green text-center text-[6.5rem] -mb-[50px] -mt-[24px] relative z-10 font-display drop-shadow-sm">
+          ayurveda
+        </h1>
         {image1?.src && (
-          <div className="pb-8 drop-shadow">
+          <div className="w-11/12 mx-auto drop-shadow">
             <Image
               src={image1.src}
               alt=""
@@ -42,21 +84,9 @@ const Ayurveda: React.FC<AyurvedaProps> = ({ content }) => {
             />
           </div>
         )}
-        {/** Body treatments */}
-        <List
-          title={content?.lists[0]?.title}
-          listArray={content?.lists[0]?.content}
-        />
-        {/** FAQs */}
-        <List
-          title={content?.lists[0]?.title}
-          listArray={content?.lists[0]?.content}
-        />
-        {/** Fees */}
-        <List
-          title={content?.lists[0]?.title}
-          listArray={content?.lists[0]?.content}
-        />
+        <div className="-mt-12 bg-not-white relative z-10">
+          <ExpandableMenu items={items} />
+        </div>
       </>
     </Layout>
   );

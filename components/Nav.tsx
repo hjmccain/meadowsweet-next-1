@@ -77,13 +77,13 @@ const Nav: React.FC<NavProps> = ({ toggleNav, showNav }) => {
         </Link>
         <Link
           className={classNames(
-            pathName === "/about"
+            pathName === "/contact"
               ? "text-pink-bright cursor-default"
               : "hover:tracking-widest hover:text-pink-bright text-green",
             !showNav && "cursor-default",
             "w-1/6 inline-block text-center transition-all hover:tracking-widest hover:text-pink-bright text-green p-2 rounded-lg"
           )}
-          href={showNav ? "/about" : ""}>
+          href={showNav ? "/contact" : ""}>
           contact
         </Link>
       </nav>

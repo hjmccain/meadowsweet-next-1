@@ -96,7 +96,7 @@ export default function Index({ content }: IndexProps) {
         )}>
         <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
       </div>
-      <div className={classNames("w-full absolute z-20 top-[28vh]")}>
+      <div className={classNames("w-full absolute z-20 top-[32vh]")}>
         <div className="w-fit h-auto text-center mx-auto justify-self-center pb-8">
           <div>
             <Image
@@ -107,15 +107,38 @@ export default function Index({ content }: IndexProps) {
               className="mx-auto h-auto w-auto"
             />
             <div className="flex flex-row justify-between ml-2 mr-16 text-3xl text-peach tracking-widest">
-              <h2 className="">midwifery</h2>
+              <Link
+                className="hover:text-pink-bright transition-colors"
+                href={"/midwifery"}>
+                midwifery
+              </Link>
               <span className="mt-1">•</span>
-              <h2 className="">abdominal massage</h2>
+              <Link
+                className="hover:text-pink-bright transition-colors"
+                href={"/abdominal-massage"}>
+                abdominal massage
+              </Link>
               <span className="mt-1">•</span>
-              <h2 className="">ayurveda</h2>
+              <Link
+                className="hover:text-pink-bright transition-colors"
+                href={"/ayurveda"}>
+                ayurveda
+              </Link>
             </div>
           </div>
         </div>
       </div>
+      <Image
+        src="/images/floral.png"
+        alt=""
+        width={200}
+        height={200}
+        className={classNames(
+          // entering ? "animate-fade-in" : "opacity-0",
+          // entered && "opacity-[100%]",
+          "h-auto w-auto mx-auto mb-8 absolute -bottom-6 left-0 right-0"
+        )}
+      />
     </main>
   ) : (
     <div>Loading</div>

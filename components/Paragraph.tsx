@@ -10,7 +10,7 @@ const Paragraph: React.FC<ParagraphProps> = ({ text, title }) => {
   const nonNullTextArray = text?.filter((el: TextItem | null) => el) || false;
 
   return nonNullTextArray ? (
-    <div className="mb-8 bg-not-white p-4 drop-shadow">
+    <div className="mb-8 bg-light-white p-4 drop-shadow">
       {title && (
         <>
           <h4 className="mb-4 p-4 border-green border text-3xl text-center drop-shadow">
@@ -30,7 +30,7 @@ const Paragraph: React.FC<ParagraphProps> = ({ text, title }) => {
             <>
               {el.h3 ? (
                 <div key={idx} className="ml-4 mb-4">
-                  <div className="italic font-extrabold text-center pt-4 text-2xl">
+                  <div className="text-center pt-4 text-6xl font-display text-green">
                     {el.h3}
                   </div>{" "}
                   {formattedPre}

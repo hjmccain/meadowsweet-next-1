@@ -56,11 +56,15 @@ const Midwifery: React.FC<MidwiferyProps> = ({ content }) => {
       ),
     },
   ];
+
   return (
     <Layout currentPage="midwifery">
       <>
+        <h1 className="text-green text-center text-[6.5rem] -mb-[50px] -mt-[24px] relative z-10 font-display drop-shadow-sm">
+          midwifery
+        </h1>
         {image2?.src && (
-          <div className="w-11/12 mx-auto">
+          <div className="w-11/12 mx-auto drop-shadow">
             <Image
               src={image2.src}
               alt=""
