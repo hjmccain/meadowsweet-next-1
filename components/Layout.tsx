@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage }) => {
     <div className="relative h-full overflow-hidden">
       <div
         className={classNames(
-          "md:p-4 md:pb-24 w-full transition-all duration-[3000ms] font-serif bg-gradient-to-t from-1% from-peach/30 to-light-white to-70% min-h-screen",
+          "md:p-4 md:pb-24 w-full transition-all duration-[3000ms] font-serif bg-gradient-to-t from-1% from-peach/50 to-light-white to-100% min-h-screen",
           "bg-opacity-[100%]"
         )}>
         <div

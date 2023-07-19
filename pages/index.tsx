@@ -96,7 +96,7 @@ export default function Index({ content }: IndexProps) {
         )}>
         <Nav showNav={showNav} toggleNav={() => toggleNav(!showNav)} />
       </div>
-      <div className={classNames("w-full absolute z-20 top-[32vh]")}>
+      <div className={classNames("w-full absolute z-20 top-[28vh]")}>
         <div className="w-fit h-auto text-center mx-auto justify-self-center pb-8">
           <div>
             <Image
